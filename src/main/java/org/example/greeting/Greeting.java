@@ -1,3 +1,4 @@
+/*
 package org.example.greeting;
 
 import org.gradle.api.DefaultTask;
@@ -18,3 +19,4 @@ public class Greeting extends DefaultTask { // <1>
         System.out.printf("%s, %s!\n", getMessage(), getRecipient()); // <2>
     }
 }
+*/

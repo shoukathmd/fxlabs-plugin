@@ -1,15 +1,46 @@
 plugins {
     id 'java-gradle-plugin'
+    id 'com.gradle.plugin-publish' version '0.10.0'
 }
 
-group = 'org.samples.greeting'
+
+pluginBundle {
+    website = 'https://fxlabs.io/'
+    vcsUrl = 'https://github.com/shoukathmd/fxlabs-plugin.git'
+    tags = ['fxlabs', 'job', 'fxlabsjobinvoke', 'fxlabsplugins']
+}
+
+group = 'io.fxlabs.job'
 version = '0.1'
 
 gradlePlugin {
     plugins {
-        greetingsPlugin {
-            id = 'org.samples.greeting'
-            implementationClass = 'org.example.greeting.GreetingPlugin'
+        jobInvoke {
+            id = 'io.fxlabs.job'
+            displayName = 'fxlabs job plugin'
+            description = 'Invoke fxlabs job from gradle build'
+            implementationClass = 'io.fxlabs.JobPlugin'
         }
     }
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+}
+
+dependencies{
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.5'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-web
+    compile group: 'org.springframework', name: 'spring-web', version: '5.0.4.RELEASE'
+
+}
+
 }

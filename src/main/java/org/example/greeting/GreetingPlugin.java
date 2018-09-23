@@ -1,3 +1,4 @@
+/*
 package org.example.greeting;
 
 import org.gradle.api.Plugin;
@@ -11,3 +12,4 @@ public class GreetingPlugin implements Plugin<Project> {
         });
     }
 }
+*/
