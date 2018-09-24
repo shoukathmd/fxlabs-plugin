@@ -7,14 +7,17 @@
 
 
 plugins {
-	id "io.fxlabs.job" version "0.2.4"
+	id "io.fxlabs.job" version "0.2.6"
 }
 
 
 
-invoke {
+fxjob {
+
 	jobId = "{fx_jobid}"
 	username = "{fx_username}"
 	password = "{fx-pwd}"
 	region = "{bot_region}"
+
+
 }

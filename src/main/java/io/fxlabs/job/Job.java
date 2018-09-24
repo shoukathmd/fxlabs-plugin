@@ -69,7 +69,7 @@ public class Job
 //    }
 
     @TaskAction
-    public void invoke() {
+    public void fxjob() {
         try {
             System.out.println("Username : " + username);
             System.out.println("Job Id : " + jobId);
@@ -112,7 +112,7 @@ public class Job
             String status = getByKeyId(response.getBody(), "task", "status");
 
             if (org.apache.commons.lang3.StringUtils.isEmpty(status)) {
-                throw new Exception("Invalid status " + status);
+                throw new GradleException("Invalid status " + status);
             }
 
             System.out.println("status : " + status);
@@ -148,7 +148,7 @@ public class Job
                 }
 
                 if ("FAIL".equalsIgnoreCase(status)) {
-                    getLogger().info("Reason for Failure : " + dataArray[1]);
+                    System.out.println("Reason for Failure : " + dataArray[1]);
                 }
 
 
@@ -172,15 +172,15 @@ public class Job
 
     private void printStatus(String[] dataArray) {
 
-        getLogger().info("----------------------------------------");
-        getLogger().info("Run detail's link " + host + dataArray[6]);
-        getLogger().info("----------------------------------------");
-        getLogger().info(dataArray[7]);
-        getLogger().info("----------------------------------------");
-        getLogger().info("Run No : " + dataArray[5]);
-        getLogger().info("----------------------------------------");
-        getLogger().info("Success : " + dataArray[1] + " % " + " -- Total Tests : " + dataArray[2] + " -- Failed Tests : " + dataArray[3]);
-        getLogger().info("----------------------------------------");
+        System.out.println("----------------------------------------");
+        System.out.println("Run detail's link " + host + dataArray[6]);
+        System.out.println("----------------------------------------");
+        System.out.println(dataArray[7]);
+        System.out.println("----------------------------------------");
+        System.out.println("Run No : " + dataArray[5]);
+        System.out.println("----------------------------------------");
+        System.out.println("Success : " + dataArray[1] + " % " + " -- Total Tests : " + dataArray[2] + " -- Failed Tests : " + dataArray[3]);
+        System.out.println("----------------------------------------");
     }
 
 
@@ -206,7 +206,7 @@ public class Job
 
             return nameNode.textValue();
         } catch (Exception e) {
-            getLogger().info(e.getLocalizedMessage());
+            System.out.println(e.getLocalizedMessage());
         }
         return null;
     }
