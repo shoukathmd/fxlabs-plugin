@@ -12,7 +12,7 @@ public class JobPlugin implements Plugin<Project> {
         project.getTasks().create("fxjob", Job.class, (task) -> {
             // <1>// <2>
 
-            task.setHost("https://cloud.io.fxlabs.io");
+            task.setHost("https://cloud.fxlabs.io/");
 
 
         });
