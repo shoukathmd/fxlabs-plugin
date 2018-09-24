@@ -20,15 +20,29 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.fxlabs.job.AuthBuilder;
 import io.fxlabs.job.HttpClientFactoryUtil;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.net.URL;
+
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.TrustStrategy;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
-import org.gradle.internal.impldep.org.apache.commons.lang.StringUtils;
 import org.springframework.http.*;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+import javax.net.ssl.*;
+import java.io.IOException;
+
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 
 import java.util.concurrent.TimeUnit;
 
@@ -83,7 +97,8 @@ public class Job
             String jobRunUrl = host + RUN_JOB_API_ENDPOINT + jobId + "?region=" + region;
             String runStatusUrl = host + RUN_STATUS_JOB_API_ENDPOINT;
 
-            RestTemplate restTemplate = new RestTemplate(HttpClientFactoryUtil.getInstance());
+            RestTemplate restTemplate = new RestTemplate(HttpClientFactoryUtil.httpComponentsClientHttpRequestFactory());
+
             HttpHeaders httpHeaders = new HttpHeaders();
 
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -211,6 +226,63 @@ public class Job
         return null;
     }
 
+    public static void disableChecks() throws NoSuchAlgorithmException,
+            KeyManagementException {
+
+        try {
+            new URL("https://0.0.0.0/").getContent();
+        } catch (IOException e) {
+            // This invocation will always fail, but it will register the
+            // default SSL provider to the URL class.
+        }
+
+        try {
+            SSLContext sslc;
+
+            sslc = SSLContext.getInstance("TLS");
+
+            TrustManager[] trustManagerArray = {new NullX509TrustManager()};
+            sslc.init(null, trustManagerArray, null);
+
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new NullHostnameVerifier());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    private static class NullX509TrustManager implements X509TrustManager {
+        public void checkClientTrusted(X509Certificate[] chain, String authType)
+                throws CertificateException {
+            System.out.println();
+        }
+
+        public void checkServerTrusted(X509Certificate[] chain, String authType)
+                throws CertificateException {
+            System.out.println();
+        }
+
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+    }
+
+    /**
+     * Host name verifier that does not perform nay checks.
+     */
+    private static class NullHostnameVerifier implements HostnameVerifier {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+
+    }
+
+
+
     @Input
     public String getJobId() {
         return jobId;
@@ -256,4 +328,8 @@ public class Job
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
+
 }
