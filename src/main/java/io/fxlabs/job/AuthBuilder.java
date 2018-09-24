@@ -1,4 +1,4 @@
-package io.fxlabs;
+package io.fxlabs.job;
 
 
 import org.apache.commons.codec.binary.Base64;

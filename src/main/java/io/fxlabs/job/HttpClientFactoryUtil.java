@@ -1,4 +1,4 @@
-package io.fxlabs;
+package io.fxlabs.job;
 
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.CloseableHttpClient;

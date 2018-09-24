@@ -1,6 +1,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'eu.appsatori.fatjar' version '0.3'
 }
 
 
@@ -11,7 +12,7 @@ pluginBundle {
 }
 
 group = 'io.fxlabs.job'
-version = '0.1'
+version = '0.2.4'
 
 gradlePlugin {
     plugins {
@@ -19,7 +20,7 @@ gradlePlugin {
             id = 'io.fxlabs.job'
             displayName = 'fxlabs job plugin'
             description = 'Invoke fxlabs job from gradle build'
-            implementationClass = 'io.fxlabs.JobPlugin'
+            implementationClass = 'io.fxlabs.job.JobPlugin'
         }
     }
 
@@ -40,6 +41,8 @@ dependencies{
 
     // https://mvnrepository.com/artifact/org.springframework/spring-web
     compile group: 'org.springframework', name: 'spring-web', version: '5.0.4.RELEASE'
+
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 
 }
 
