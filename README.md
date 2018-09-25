@@ -19,5 +19,6 @@ fxjob {
 	password = "{fx-pwd}"
 	region = "{bot_region}"
 
-
 }
+
+For latest plugin version go to  https://plugins.gradle.org/plugin/io.fxlabs.job
