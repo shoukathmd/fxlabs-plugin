@@ -7,7 +7,7 @@
 
 
 plugins {
-	id "io.fxlabs.job" version "0.2.7"
+	id "io.fxlabs.job" version "0.2.8"
 }
 
 
