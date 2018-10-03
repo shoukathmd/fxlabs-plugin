@@ -3,7 +3,7 @@
 
  To use fxlabs gradle plugin to invoke job include below script in build.gradle and replace jobid, username, pwd and region with your details from fxlabs and run the command
 
- "gradle fxjob" which invokes the build on fxlabs
+ "gradle fx" which invokes the build on fxlabs
 
 
 plugins {
@@ -12,7 +12,7 @@ plugins {
 
 
 
-fxjob {
+fx {
 
 	jobId = "{fx_jobid}"
 	username = "{fx_username}"
